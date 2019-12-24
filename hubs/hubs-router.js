@@ -1,9 +1,11 @@
 const express = require('express');
 
+const Hubs = require('../hubs/hubs-model.js');
+
 const router = express.Router();
 // URI: /api/hubs
 
-router.get('/api/hubs', (req, res) => {
+router.get('/', (req, res) => {
     Hubs.find(req.query)
     .then(hubs => {
       res.status(200).json(hubs);
@@ -17,7 +19,7 @@ router.get('/api/hubs', (req, res) => {
     });
   });
   
-  router.get('/api/hubs/:id', (req, res) => {
+  router.get('/:id', (req, res) => {
     Hubs.findById(req.params.id)
     .then(hub => {
       if (hub) {
@@ -35,7 +37,7 @@ router.get('/api/hubs', (req, res) => {
     });
   });
   
-  router.post('/api/hubs', (req, res) => {
+  router.post('/', (req, res) => {
     Hubs.add(req.body)
     .then(hub => {
       res.status(201).json(hub);
@@ -49,7 +51,7 @@ router.get('/api/hubs', (req, res) => {
     });
   });
   
-  router.delete('/api/hubs/:id', (req, res) => {
+  router.delete('/:id', (req, res) => {
     Hubs.remove(req.params.id)
     .then(count => {
       if (count > 0) {
@@ -67,7 +69,7 @@ router.get('/api/hubs', (req, res) => {
     });
   });
   
-  router.put('/api/hubs/:id', (req, res) => {
+  router.put('/:id', (req, res) => {
     const changes = req.body;
     Hubs.update(req.params.id, changes)
     .then(hub => {
@@ -85,3 +87,5 @@ router.get('/api/hubs', (req, res) => {
       });
     });
   });
+
+  module.exports = router
